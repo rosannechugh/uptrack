@@ -1,0 +1,22 @@
+
+services:
+  db:
+    image: postgres:16
+    container_name: uptrack-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: uptrack
+      POSTGRES_USER: uptrack
+      POSTGRES_PASSWORD: uptrack_dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - uptrack_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uptrack -d uptrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  uptrack_data:
