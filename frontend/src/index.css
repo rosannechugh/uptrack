@@ -1,0 +1,119 @@
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import 'tailwindcss';
+
+/*
+  UpTrack design tokens.
+  Navy sidebar, cool neutral canvas, one blue accent. Green, amber and red are
+  reserved for operational state and never used decoratively.
+*/
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-nav: #0e1a2e;
+  --color-nav-raised: #17263f;
+  --color-nav-line: #22334f;
+  --color-nav-ink: #d3dbea;
+  --color-nav-muted: #8392ab;
+
+  --color-canvas: #f3f5f8;
+  --color-surface: #ffffff;
+  --color-sunken: #f7f9fb;
+  --color-line: #e1e6ed;
+  --color-line-strong: #c9d1dd;
+
+  --color-ink: #0f1b2d;
+  --color-muted: #536175;
+  --color-subtle: #7b8798;
+
+  --color-accent: #1d5fd8;
+  --color-accent-strong: #174aad;
+  --color-accent-soft: #e8f0fd;
+
+  --color-up: #0b7a40;
+  --color-up-soft: #e2f4ea;
+  --color-down: #c42a2a;
+  --color-down-soft: #fdeaea;
+  --color-warn: #a35700;
+  --color-warn-soft: #fff1d6;
+  --color-unknown: #566377;
+  --color-unknown-soft: #eaeef3;
+
+  --shadow-card: 0 1px 2px rgb(15 27 45 / 0.04);
+  --shadow-pop: 0 8px 28px -6px rgb(15 27 45 / 0.22), 0 2px 6px rgb(15 27 45 / 0.08);
+
+  --text-2xs: 0.6875rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-canvas);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+    background: var(--color-canvas);
+    font-feature-settings: 'tnum' 1;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .skeleton {
+    background: linear-gradient(90deg, #e9edf2 25%, #f3f5f8 50%, #e9edf2 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+    border-radius: 6px;
+  }
+  .toast-in {
+    animation: toast-in 180ms ease-out;
+  }
+  dialog.modal::backdrop {
+    background: rgb(10 20 36 / 0.55);
+  }
+  dialog.modal[open] {
+    animation: dialog-in 160ms ease-out;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
